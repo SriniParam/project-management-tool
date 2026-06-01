@@ -2,11 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
+dotenv.config();
+require("./db");
+
 const projectRoutes = require("./routes/projects");
 const taskRoutes = require("./routes/tasks");
 const assigneeRoutes = require("./routes/assignees");
-
-dotenv.config();
 
 const app = express();
 
