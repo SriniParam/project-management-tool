@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import API from '../api'
 
 function ProjectCard({ project, refreshProjects }) {
   const navigate = useNavigate()
@@ -10,10 +11,13 @@ function ProjectCard({ project, refreshProjects }) {
 
   const deleteProject = async () => {
     if (window.confirm(`Are you sure you want to delete "${project.name}"?`)) {
-      await fetch(`http://localhost:5000/api/projects/${project.id}`, {
-        method: 'DELETE',
-      })
-      refreshProjects()
+      try {
+        await API.delete(`/projects/${project.id}`)
+        refreshProjects()
+      } catch (error) {
+        console.error('Error deleting project:', error)
+        alert('Failed to delete project. Please refresh and try again.')
+      }
     }
   }
 
